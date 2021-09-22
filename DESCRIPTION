@@ -1,13 +1,13 @@
 Package: cwrshelpr
-Title: What the Package Does (One Line, Title Case)
+Title: Functions for CWRS Data Analysis
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Benjamin",
+           family = "Trueman",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "Benjamin.trueman@dal.ca",
+           comment = c(ORCID = "0000-0002-1539-3092"))
+Description: Functions for data analysis at Dalhousie University's Centre for Water Resources Studies.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,8 +16,12 @@ RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     janitor,
+    readxl,
     rlang,
     stringr,
     tibble,
     tidyr,
     tidyselect
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
