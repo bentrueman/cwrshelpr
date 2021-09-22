@@ -62,7 +62,7 @@ read_icp <- function(
     ) %>%
     transmute(
       sample_name = .data$sample_list_label,
-      category = .data$sample_list_category,
+      estimate_type = .data$sample_list_category,
       isotope = str_extract(.data$element, "\\d+"),
       element = str_replace(.data$element, "(x\\d+)([a-z]+)(.+)", "\\2") %>%
         str_to_title(),
