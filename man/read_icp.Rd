@@ -30,5 +30,5 @@ file <- list.files(
    path = system.file("extdata", package = "cwrshelpr"),
    full.names = TRUE
 )
-read_icp(file)
+read_icp(file[1])
 }

@@ -23,7 +23,7 @@
 #'    path = system.file("extdata", package = "cwrshelpr"),
 #'    full.names = TRUE
 #' )
-#' read_icp(file)
+#' read_icp(file[1])
 read_icp <- function(
   path,
   sheet_name = "Dilution factor included",

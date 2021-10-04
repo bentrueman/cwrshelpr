@@ -34,7 +34,7 @@ file <- list.files(
    full.names = TRUE
 )
 read_icp(path = file[1]) # read and clean one file
-#> # A tibble: 4,680 × 6
+#> # A tibble: 1,440 × 6
 #>    sample_name estimate_type         isotope element    value unit 
 #>    <chr>       <chr>                 <chr>   <chr>      <dbl> <chr>
 #>  1 Wash        Concentration average 27      Al       0.115   µg/l 
@@ -47,11 +47,11 @@ read_icp(path = file[1]) # read and clean one file
 #>  8 Wash        Concentration average 159     Tb      98.1     %    
 #>  9 Wash        Concentration average 208     Pb       0.0497  µg/l 
 #> 10 Wash        Concentration per Run 27      Al       0.133   µg/l 
-#> # … with 4,670 more rows
+#> # … with 1,430 more rows
 file %>% 
   set_names() %>% 
   map_dfr(read_icp, .id = "file") # read and clean mulitple files
-#> # A tibble: 5,679 × 7
+#> # A tibble: 2,439 × 7
 #>    file                sample_name estimate_type  isotope element    value unit 
 #>    <chr>               <chr>       <chr>          <chr>   <chr>      <dbl> <chr>
 #>  1 /private/var/folde… Wash        Concentration… 27      Al       0.115   µg/l 
@@ -64,5 +64,5 @@ file %>%
 #>  8 /private/var/folde… Wash        Concentration… 159     Tb      98.1     %    
 #>  9 /private/var/folde… Wash        Concentration… 208     Pb       0.0497  µg/l 
 #> 10 /private/var/folde… Wash        Concentration… 27      Al       0.133   µg/l 
-#> # … with 5,669 more rows
+#> # … with 2,429 more rows
 ```
