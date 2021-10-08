@@ -21,7 +21,8 @@
 #' @examples
 #' file <- list.files(
 #'    path = system.file("extdata", package = "cwrshelpr"),
-#'    full.names = TRUE
+#'    full.names = TRUE,
+#'    pattern = ".+\\.xlsx"
 #' )
 #' read_icp(file[1])
 read_icp <- function(
