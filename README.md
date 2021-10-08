@@ -3,7 +3,7 @@
 
 # cwrshelpr
 
-<!-- badges: start --> 
+<!-- badges: start -->
 <!-- badges: end -->
 
 `cwrshelpr` provides a collection of functions for data analysis tasks
