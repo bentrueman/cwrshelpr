@@ -122,7 +122,7 @@ feem_dat %>%
   ggplot(aes(excitation, em_regular, z = intensity, fill = stat(level))) +
   facet_wrap(vars(file)) + 
   stat_contour(geom = "polygon") +
-  scale_fill_viridis_c()
+  scale_fill_viridis_c("intensity")
 ```
 
 <img src="man/figures/README-feem-plot-2-1.png" width="100%" />
