@@ -95,3 +95,20 @@ feem_dat %>%
   scale_fill_viridis_c("intensity")
 
 ```
+
+Integrate regions of the FEEM using `integrate_regions()`. This function uses the regions defined in Chen et al. (2003) by default, but you can supply your own as well.
+
+```{r inegrate}
+
+feem_dat %>% 
+  group_by(file) %>% 
+  nest() %>% 
+  ungroup() %>% 
+  mutate(regions = map(data, integrate_regions)) %>% 
+  unnest(regions)
+
+```
+
+# References  
+
+Chen, W., Westerhoff, P., Leenheer, J. A., & Booksh, K. (2003). Fluorescence excitation−emission matrix regional integration to quantify spectra for dissolved organic matter. Environmental science & technology, 37(24), 5701-5710.

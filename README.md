@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file --> 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # cwrshelpr
 
@@ -126,3 +126,38 @@ feem_dat %>%
 ```
 
 <img src="man/figures/README-feem-plot-2-1.png" width="100%" />
+
+Integrate regions of the FEEM using `integrate_regions()`. This function
+uses the regions defined in Chen et al. (2003) by default, but you can
+supply your own as well.
+
+``` r
+feem_dat %>% 
+  group_by(file) %>% 
+  nest() %>% 
+  ungroup() %>% 
+  mutate(regions = map(data, integrate_regions)) %>% 
+  unnest(regions)
+#> # A tibble: 12 × 8
+#>    file                   data      name  ex_min ex_max em_min em_max integrated
+#>    <chr>                  <list>    <chr>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
+#>  1 /private/var/folders/… <tibble … regi…    200    250    250    330       46.1
+#>  2 /private/var/folders/… <tibble … regi…    200    250    250    380      261. 
+#>  3 /private/var/folders/… <tibble … regi…    200    250    250    550     2687. 
+#>  4 /private/var/folders/… <tibble … regi…    250    340    340    380      827. 
+#>  5 /private/var/folders/… <tibble … regi…    250    400    400    550    14921. 
+#>  6 /private/var/folders/… <tibble … total     NA     NA     NA     NA    24147. 
+#>  7 /private/var/folders/… <tibble … regi…    200    250    250    330       62.3
+#>  8 /private/var/folders/… <tibble … regi…    200    250    250    380      276. 
+#>  9 /private/var/folders/… <tibble … regi…    200    250    250    550     3219. 
+#> 10 /private/var/folders/… <tibble … regi…    250    340    340    380      913. 
+#> 11 /private/var/folders/… <tibble … regi…    250    400    400    550    18596. 
+#> 12 /private/var/folders/… <tibble … total     NA     NA     NA     NA    30067.
+```
+
+# References
+
+Chen, W., Westerhoff, P., Leenheer, J. A., & Booksh, K. (2003).
+Fluorescence excitation−emission matrix regional integration to quantify
+spectra for dissolved organic matter. Environmental science &
+technology, 37(24), 5701-5710.
