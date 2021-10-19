@@ -109,6 +109,21 @@ feem_dat %>%
 
 ```
 
+The humification and biological indices of each FEEM, as described in Tedetti et al. (2011), can be calculated using `calculate_indices()`:
+
+```{r ix}
+
+feem_dat %>% 
+  group_by(file) %>% 
+  nest() %>% 
+  ungroup() %>% 
+  mutate(ix = map(data, calculate_indices)) %>% 
+  unnest(ix)
+
+```
+
 # References  
 
 Chen, W., Westerhoff, P., Leenheer, J. A., & Booksh, K. (2003). Fluorescence excitation−emission matrix regional integration to quantify spectra for dissolved organic matter. Environmental science & technology, 37(24), 5701-5710.
+
+Tedetti, M., Cuet, P., Guigue, C., & Goutx, M. (2011). Characterization of dissolved organic matter in a coral reef ecosystem subjected to anthropogenic pressures (La Réunion Island, Indian Ocean) using multi-dimensional fluorescence spectroscopy. Science of the total environment, 409(11), 2198-2210.

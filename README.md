@@ -155,9 +155,34 @@ feem_dat %>%
 #> 12 /private/var/folders/… <tibble … total     NA     NA     NA     NA    24147.
 ```
 
+The humification and biological indices of each FEEM, as described in
+Tedetti et al. (2011), can be calculated using `calculate_indices()`:
+
+``` r
+feem_dat %>% 
+  group_by(file) %>% 
+  nest() %>% 
+  ungroup() %>% 
+  mutate(ix = map(data, calculate_indices)) %>% 
+  unnest(ix)
+#> # A tibble: 4 × 4
+#>   file                                               data           param  value
+#>   <chr>                                              <list>         <chr>  <dbl>
+#> 1 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… bix    0.517
+#> 2 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… hix   14.6  
+#> 3 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… bix    0.508
+#> 4 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… hix   13.6
+```
+
 # References
 
 Chen, W., Westerhoff, P., Leenheer, J. A., & Booksh, K. (2003).
 Fluorescence excitation−emission matrix regional integration to quantify
 spectra for dissolved organic matter. Environmental science &
 technology, 37(24), 5701-5710.
+
+Tedetti, M., Cuet, P., Guigue, C., & Goutx, M. (2011). Characterization
+of dissolved organic matter in a coral reef ecosystem subjected to
+anthropogenic pressures (La Réunion Island, Indian Ocean) using
+multi-dimensional fluorescence spectroscopy. Science of the total
+environment, 409(11), 2198-2210.
