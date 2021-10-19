@@ -141,18 +141,18 @@ feem_dat %>%
 #> # A tibble: 12 × 8
 #>    file                   data      name  ex_min ex_max em_min em_max integrated
 #>    <chr>                  <list>    <chr>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
-#>  1 /private/var/folders/… <tibble … regi…    200    250    250    330       46.1
-#>  2 /private/var/folders/… <tibble … regi…    200    250    250    380      261. 
-#>  3 /private/var/folders/… <tibble … regi…    200    250    250    550     2687. 
-#>  4 /private/var/folders/… <tibble … regi…    250    340    340    380      827. 
-#>  5 /private/var/folders/… <tibble … regi…    250    400    400    550    14921. 
-#>  6 /private/var/folders/… <tibble … total     NA     NA     NA     NA    24147. 
-#>  7 /private/var/folders/… <tibble … regi…    200    250    250    330       62.3
-#>  8 /private/var/folders/… <tibble … regi…    200    250    250    380      276. 
-#>  9 /private/var/folders/… <tibble … regi…    200    250    250    550     3219. 
-#> 10 /private/var/folders/… <tibble … regi…    250    340    340    380      913. 
-#> 11 /private/var/folders/… <tibble … regi…    250    400    400    550    18596. 
-#> 12 /private/var/folders/… <tibble … total     NA     NA     NA     NA    30067.
+#>  1 /private/var/folders/… <tibble … regi…    200    250    250    330       46.6
+#>  2 /private/var/folders/… <tibble … regi…    200    250    250    380      247. 
+#>  3 /private/var/folders/… <tibble … regi…    200    250    250    550     2421. 
+#>  4 /private/var/folders/… <tibble … regi…    250    340    340    380      745. 
+#>  5 /private/var/folders/… <tibble … regi…    250    400    400    550    13312. 
+#>  6 /private/var/folders/… <tibble … total     NA     NA     NA     NA    21597. 
+#>  7 /private/var/folders/… <tibble … regi…    200    250    250    330       46.1
+#>  8 /private/var/folders/… <tibble … regi…    200    250    250    380      261. 
+#>  9 /private/var/folders/… <tibble … regi…    200    250    250    550     2687. 
+#> 10 /private/var/folders/… <tibble … regi…    250    340    340    380      827. 
+#> 11 /private/var/folders/… <tibble … regi…    250    400    400    550    14921. 
+#> 12 /private/var/folders/… <tibble … total     NA     NA     NA     NA    24147.
 ```
 
 # References
