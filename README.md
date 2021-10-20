@@ -178,9 +178,27 @@ feem_dat %>%
 #> 4 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… hix   13.6
 ```
 
-## Field flow fractionation data
+## Additional resources
 
-This is available [here](https://github.com/bentrueman/fffprocessr).
+### Field flow fractionation data
+
+Read, clean, and analyze field flow fractionation data using
+`fffprocessr`, available
+[here](https://github.com/bentrueman/fffprocessr).
+
+### Coagulation modeling
+
+An implementation of the Edwards (1997) model in R is available
+[here](https://cran.r-project.org/web/packages/edwards97/index.html), or
+via `install.packages("edwards97")`.
+
+### Geochemical modeling
+
+Dewey Dunnington’s `tidyphreeqc` (available
+[here](https://github.com/paleolimbot/tidyphreeqc)) provides an
+interface to PHREEQC in R, and `pbcusol` is designed specifically for
+lead and copper solubility modeling (available
+[here](https://github.com/bentrueman/pbcusol)).
 
 # References
 
@@ -188,6 +206,9 @@ Chen, W., Westerhoff, P., Leenheer, J. A., & Booksh, K. (2003).
 Fluorescence excitation−emission matrix regional integration to quantify
 spectra for dissolved organic matter. Environmental science &
 technology, 37(24), 5701-5710.
+
+Edwards, M. (1997). Predicting DOC removal during enhanced coagulation.
+Journal American Water Works Association, 89(5), 78-89.
 
 Tedetti, M., Cuet, P., Guigue, C., & Goutx, M. (2011). Characterization
 of dissolved organic matter in a coral reef ecosystem subjected to
