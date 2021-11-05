@@ -13,7 +13,9 @@ at Dalhousie University’s Centre for Water Resources Studies.
 
 You can install the development version from
 [GitHub](https://github.com/) as follows. If the `remotes` package is
-not installed, run `install.packages("remotes")` first.
+not installed, run `install.packages("remotes")` first. If you’re new to
+R, [*R for data science*](https://r4ds.had.co.nz/) provides an excellent
+introduction.
 
 ``` r
 remotes::install_github("bentrueman/cwrshelpr")
