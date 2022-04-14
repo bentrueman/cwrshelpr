@@ -4,6 +4,10 @@
 # cwrshelpr
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/bentrueman/cwrshelpr/workflows/R-CMD-check/badge.svg)](https://github.com/bentrueman/cwrshelpr/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/bentrueman/cwrshelpr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bentrueman/cwrshelpr?branch=main)
 <!-- badges: end -->
 
 `cwrshelpr` provides a collection of functions for data analysis tasks
@@ -59,18 +63,18 @@ files %>%
   set_names() %>% 
   map_dfr(read_icp, .id = "file") # read and clean multiple files
 #> # A tibble: 2,439 × 7
-#>    file                sample_name estimate_type  isotope element    value unit 
-#>    <chr>               <chr>       <chr>          <chr>   <chr>      <dbl> <chr>
-#>  1 /private/var/folde… Wash        Concentration… 27      Al       0.115   µg/l 
-#>  2 /private/var/folde… Wash        Concentration… 31      P       -0.0408  µg/l 
-#>  3 /private/var/folde… Wash        Concentration… 45      Sc      99.6     %    
-#>  4 /private/var/folde… Wash        Concentration… 55      Mn      -0.00621 µg/l 
-#>  5 /private/var/folde… Wash        Concentration… 56      Fe       0.0124  µg/l 
-#>  6 /private/var/folde… Wash        Concentration… 65      Cu       0.0396  µg/l 
-#>  7 /private/var/folde… Wash        Concentration… 115     In      99.2     %    
-#>  8 /private/var/folde… Wash        Concentration… 159     Tb      98.1     %    
-#>  9 /private/var/folde… Wash        Concentration… 208     Pb       0.0497  µg/l 
-#> 10 /private/var/folde… Wash        Concentration… 27      Al       0.133   µg/l 
+#>    file                 sample_name estimate_type isotope element    value unit 
+#>    <chr>                <chr>       <chr>         <chr>   <chr>      <dbl> <chr>
+#>  1 /Library/Frameworks… Wash        Concentratio… 27      Al       0.115   µg/l 
+#>  2 /Library/Frameworks… Wash        Concentratio… 31      P       -0.0408  µg/l 
+#>  3 /Library/Frameworks… Wash        Concentratio… 45      Sc      99.6     %    
+#>  4 /Library/Frameworks… Wash        Concentratio… 55      Mn      -0.00621 µg/l 
+#>  5 /Library/Frameworks… Wash        Concentratio… 56      Fe       0.0124  µg/l 
+#>  6 /Library/Frameworks… Wash        Concentratio… 65      Cu       0.0396  µg/l 
+#>  7 /Library/Frameworks… Wash        Concentratio… 115     In      99.2     %    
+#>  8 /Library/Frameworks… Wash        Concentratio… 159     Tb      98.1     %    
+#>  9 /Library/Frameworks… Wash        Concentratio… 208     Pb       0.0497  µg/l 
+#> 10 /Library/Frameworks… Wash        Concentratio… 27      Al       0.133   µg/l 
 #> # … with 2,429 more rows
 ```
 
@@ -145,20 +149,20 @@ feem_dat %>%
   mutate(regions = map(data, integrate_regions)) %>% 
   unnest(regions)
 #> # A tibble: 12 × 8
-#>    file                   data      name  ex_min ex_max em_min em_max integrated
-#>    <chr>                  <list>    <chr>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
-#>  1 /private/var/folders/… <tibble … regi…    200    250    250    330       46.6
-#>  2 /private/var/folders/… <tibble … regi…    200    250    250    380      247. 
-#>  3 /private/var/folders/… <tibble … regi…    200    250    250    550     2421. 
-#>  4 /private/var/folders/… <tibble … regi…    250    340    340    380      745. 
-#>  5 /private/var/folders/… <tibble … regi…    250    400    400    550    13312. 
-#>  6 /private/var/folders/… <tibble … total     NA     NA     NA     NA    21597. 
-#>  7 /private/var/folders/… <tibble … regi…    200    250    250    330       46.1
-#>  8 /private/var/folders/… <tibble … regi…    200    250    250    380      261. 
-#>  9 /private/var/folders/… <tibble … regi…    200    250    250    550     2687. 
-#> 10 /private/var/folders/… <tibble … regi…    250    340    340    380      827. 
-#> 11 /private/var/folders/… <tibble … regi…    250    400    400    550    14921. 
-#> 12 /private/var/folders/… <tibble … total     NA     NA     NA     NA    24147.
+#>    file                    data     name  ex_min ex_max em_min em_max integrated
+#>    <chr>                   <list>   <chr>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
+#>  1 /Library/Frameworks/R.… <tibble> regi…    200    250    250    330       46.6
+#>  2 /Library/Frameworks/R.… <tibble> regi…    200    250    250    380      247. 
+#>  3 /Library/Frameworks/R.… <tibble> regi…    200    250    250    550     2421. 
+#>  4 /Library/Frameworks/R.… <tibble> regi…    250    340    340    380      745. 
+#>  5 /Library/Frameworks/R.… <tibble> regi…    250    400    400    550    13312. 
+#>  6 /Library/Frameworks/R.… <tibble> total     NA     NA     NA     NA    21597. 
+#>  7 /Library/Frameworks/R.… <tibble> regi…    200    250    250    330       46.1
+#>  8 /Library/Frameworks/R.… <tibble> regi…    200    250    250    380      261. 
+#>  9 /Library/Frameworks/R.… <tibble> regi…    200    250    250    550     2687. 
+#> 10 /Library/Frameworks/R.… <tibble> regi…    250    340    340    380      827. 
+#> 11 /Library/Frameworks/R.… <tibble> regi…    250    400    400    550    14921. 
+#> 12 /Library/Frameworks/R.… <tibble> total     NA     NA     NA     NA    24147.
 ```
 
 The humification and biological indices of each FEEM, as described in
@@ -172,12 +176,12 @@ feem_dat %>%
   mutate(ix = map(data, calculate_indices)) %>% 
   unnest(ix)
 #> # A tibble: 4 × 4
-#>   file                                               data           param  value
-#>   <chr>                                              <list>         <chr>  <dbl>
-#> 1 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… bix    0.517
-#> 2 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… hix   14.6  
-#> 3 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… bix    0.508
-#> 4 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40… <tibble [15,1… hix   13.6
+#>   file                                                     data     param  value
+#>   <chr>                                                    <list>   <chr>  <dbl>
+#> 1 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> bix    0.517
+#> 2 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> hix   14.6  
+#> 3 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> bix    0.508
+#> 4 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> hix   13.6
 ```
 
 ## Additional resources

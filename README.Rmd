@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 # cwrshelpr
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/bentrueman/cwrshelpr/workflows/R-CMD-check/badge.svg)](https://github.com/bentrueman/cwrshelpr/actions)
+[![Codecov test coverage](https://codecov.io/gh/bentrueman/cwrshelpr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bentrueman/cwrshelpr?branch=main)
 <!-- badges: end -->
 
 `cwrshelpr` provides a collection of functions for data analysis tasks at Dalhousie University's Centre for Water Resources Studies.
