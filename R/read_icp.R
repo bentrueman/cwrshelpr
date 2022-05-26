@@ -42,10 +42,10 @@ read_icp <- function(
     filter(.data$start_indicator_var) %>%
     select(-.data$start_indicator_var) %>%
     t() %>%
-    as_tibble(.name_repair = "unique") %>%
-    fill(.data$`...1`) %>%
+    as_tibble_no_warning() %>%
+    fill(.data$V1) %>%
     t() %>%
-    as_tibble(.name_repair = "unique") %>%
+    as_tibble_no_warning() %>%
     two_row_names() %>%
     slice(-(1:2)) %>%
     clean_names() %>%
@@ -71,6 +71,8 @@ read_icp <- function(
       unit = .data$unit
     )
 }
+
+as_tibble_no_warning <- function(x) suppressWarnings(as_tibble(x))
 
 two_row_names <- function(x) {
   x %>%
