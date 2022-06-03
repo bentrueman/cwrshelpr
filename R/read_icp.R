@@ -9,8 +9,8 @@
 #' @return A tibble with columns `sample_name`, `category`, `isotope`, `element`,
 #' `value`, and `unit`
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr mutate filter select slice summarize across select_at transmute vars %>%
-#' @importFrom stringr str_detect str_extract str_replace str_to_title
+#' @importFrom dplyr mutate filter select slice summarize across select_at transmute vars rename_with %>%
+#' @importFrom stringr str_detect str_extract str_replace str_to_title str_remove_all
 #' @importFrom tidyr replace_na pivot_longer fill
 #' @importFrom tidyselect everything starts_with
 #' @importFrom rlang set_names .data
@@ -32,21 +32,14 @@ read_icp <- function(
 ) {
   path %>%
     read_excel(col_names = FALSE, sheet = sheet_name) %>%
-    # next 8 lines filter out rows before the data starts:
-    mutate(
-      start_indicator_var = str_detect(.data$`...1`, first_line) %>%
-        replace_na(0) %>%
-        cumsum() %>%
-        as.logical()
-    ) %>%
-    filter(.data$start_indicator_var) %>%
-    select(-.data$start_indicator_var) %>%
+    start_here(first_line) %>%
+    # fill first row:
     t() %>%
     as_tibble_no_warning() %>%
     fill(.data$V1) %>%
     t() %>%
     as_tibble_no_warning() %>%
-    two_row_names() %>%
+    rename_multirow() %>%
     slice(-(1:2)) %>%
     clean_names() %>%
     select_at(
@@ -74,10 +67,28 @@ read_icp <- function(
 
 as_tibble_no_warning <- function(x) suppressWarnings(as_tibble(x))
 
-two_row_names <- function(x) {
-  x %>%
+rename_multirow <- function (x, n = 2, remove_na = FALSE) {
+  x <- x %>%
     set_names(
-      nm = slice(x, 1:2) %>%
+      nm = slice(x, seq_len(n)) %>%
         summarize(across(everything(), ~ paste(.x, collapse = "_")))
     )
+  if(remove_na) {
+    rename_with(x, ~ str_remove_all(.x, "NA_"))
+  } else {
+    x
+  }
+}
+
+start_here <- function(x, first_line) {
+  # filter out rows before the data starts:
+  x %>%
+    mutate(
+      start_indicator_var = str_detect(.data$`...1`, first_line) %>%
+        replace_na(0) %>%
+        cumsum() %>%
+        as.logical()
+    ) %>%
+    filter(.data$start_indicator_var) %>%
+    select(-.data$start_indicator_var)
 }
