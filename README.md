@@ -59,7 +59,7 @@ read_icp(path = files[1]) # read and clean one file
 #>  9 Wash        Concentration average 208     Pb       0.0497  µg/l 
 #> 10 Wash        Concentration per Run 27      Al       0.133   µg/l 
 #> # … with 1,430 more rows
-files %>% 
+files[1:2] %>% 
   set_names() %>% 
   map_dfr(read_icp, .id = "file") # read and clean multiple files
 #> # A tibble: 2,439 × 7
@@ -76,6 +76,28 @@ files %>%
 #>  9 /Library/Frameworks… Wash        Concentratio… 208     Pb       0.0497  µg/l 
 #> 10 /Library/Frameworks… Wash        Concentratio… 27      Al       0.133   µg/l 
 #> # … with 2,429 more rows
+```
+
+Use the `read_lims()` function to read/clean files in the new LIMS
+format:
+
+``` r
+read_lims(files[3], work_order = "00A123456")
+#> # A tibble: 12 × 7
+#>    param                             unit  rdl     value date       sample bdl  
+#>    <chr>                             <chr> <chr>   <dbl> <date>     <chr>  <lgl>
+#>  1 Total Lithium Solid Digestion ug… ug/L  0.4   8.54e+2 2022-05-11 SAMPL… FALSE
+#>  2 Total Lithium Solid Digestion ug… ug/L  0.4   1.01e+3 2022-05-11 SAMPL… FALSE
+#>  3 Total Lithium Solid Digestion ug… ug/L  0.4   8.14e+2 2022-05-11 SAMPL… FALSE
+#>  4 Total Lithium Solid Digestion ug… ug/L  0.4   4   e-1 2022-05-11 SAMPL… TRUE 
+#>  5 Total Sodium Solid Digestion mg/L mg/L  0.1   3.44e+0 2022-05-11 SAMPL… FALSE
+#>  6 Total Sodium Solid Digestion mg/L mg/L  0.1   4.28e+0 2022-05-11 SAMPL… FALSE
+#>  7 Total Sodium Solid Digestion mg/L mg/L  0.1   3.52e+0 2022-05-11 SAMPL… FALSE
+#>  8 Total Sodium Solid Digestion mg/L mg/L  0.1   2.78e-1 2022-05-11 SAMPL… FALSE
+#>  9 Total Magnesium Solid Digestion … mg/L  0.1   3.64e+1 2022-05-11 SAMPL… FALSE
+#> 10 Total Magnesium Solid Digestion … mg/L  0.1   4.37e+1 2022-05-11 SAMPL… FALSE
+#> 11 Total Magnesium Solid Digestion … mg/L  0.1   5.36e+1 2022-05-11 SAMPL… FALSE
+#> 12 Total Magnesium Solid Digestion … mg/L  0.1   1   e-1 2022-05-11 SAMPL… TRUE
 ```
 
 ## Fluorescence excitation-emission matrices (FEEM)

@@ -49,11 +49,18 @@ files <- list.files(
    pattern = ".+\\.xlsx"
 )
 read_icp(path = files[1]) # read and clean one file
-files %>% 
+files[1:2] %>% 
   set_names() %>% 
   map_dfr(read_icp, .id = "file") # read and clean multiple files
 
 ```
+
+Use the `read_lims()` function to read/clean files in the new LIMS format:
+
+```{r read_lims, message=FALSE}
+read_lims(files[3], work_order = "00A123456")
+```
+
 
 ```{r theme, echo=FALSE}
 theme_set(theme_bw())
