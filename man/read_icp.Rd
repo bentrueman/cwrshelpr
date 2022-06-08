@@ -7,7 +7,9 @@
 read_icp(
   path,
   sheet_name = "Dilution factor included",
-  first_line = "Sample List"
+  first_line = "Sample List",
+  sample_names = "Label",
+  estimate_types = "Category"
 )
 }
 \arguments{
@@ -17,6 +19,10 @@ read_icp(
 
 \item{first_line}{The first column matches this pattern at the first line of data.
 As an input to \code{stringr::str_detect()}, this can be a partial match or a regex.}
+
+\item{sample_names}{Name of column where sample names are stored.}
+
+\item{estimate_types}{Name of column where estimate types are stored (e.g., average, standard deviation).}
 }
 \value{
 A tibble with columns \code{sample_name}, \code{category}, \code{isotope}, \code{element},

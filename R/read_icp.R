@@ -5,6 +5,8 @@
 #' @param sheet_name Name of MS Excel sheet where data are stored
 #' @param first_line The first column matches this pattern at the first line of data.
 #' As an input to `stringr::str_detect()`, this can be a partial match or a regex.
+#' @param sample_names Name of column where sample names are stored.
+#' @param estimate_types Name of column where estimate types are stored (e.g., average, standard deviation).
 #'
 #' @return A tibble with columns `sample_name`, `category`, `isotope`, `element`,
 #' `value`, and `unit`
@@ -14,7 +16,7 @@
 #' @importFrom tidyr replace_na pivot_longer fill
 #' @importFrom tidyselect everything starts_with
 #' @importFrom rlang set_names .data
-#' @importFrom janitor clean_names
+#' @importFrom janitor clean_names make_clean_names
 #' @importFrom readxl read_excel
 #' @export
 #'
@@ -28,38 +30,31 @@
 read_icp <- function(
   path,
   sheet_name = "Dilution factor included",
-  first_line = "Sample List"
+  first_line = "Sample List",
+  sample_names = "Label",
+  estimate_types = "Category"
 ) {
+
+  temp_names <- make_clean_names(paste(first_line, sample_names, sep = " "))
+  temp_types <- make_clean_names(paste(first_line, estimate_types, sep = " "))
+
   path %>%
     read_excel(col_names = FALSE, sheet = sheet_name) %>%
     start_here(first_line) %>%
-    # fill first row:
-    t() %>%
-    as_tibble_no_warning() %>%
-    fill(.data$V1) %>%
-    t() %>%
-    as_tibble_no_warning() %>%
-    rename_multirow() %>%
+    horizontal_fill() %>% # fill first row
+    rename_multirow() %>% # get metadata from first two rows
     slice(-(1:2)) %>%
     clean_names() %>%
-    select_at(
-      vars(c(
-          .data$sample_list_label,
-          .data$sample_list_category,
-          starts_with("x")
-        ))
-    ) %>%
     pivot_longer(
-      -c(.data$sample_list_label, .data$sample_list_category),
+      starts_with("x"),
       names_to = c("element", ".value"),
       names_pattern = "(.+ked_)(.+)"
     ) %>%
     transmute(
-      sample_name = .data$sample_list_label,
-      estimate_type = .data$sample_list_category,
+      sample_name = .data[[temp_names]],
+      estimate_type = .data[[temp_types]],
       isotope = str_extract(.data$element, "\\d+"),
-      element = str_replace(.data$element, "(x\\d+)([a-z]+)(.+)", "\\2") %>%
-        str_to_title(),
+      element = str_to_title(str_replace(.data$element, "(x\\d+)([a-z]+)(.+)", "\\2")),
       value = as.numeric(.data$value),
       unit = .data$unit
     )
@@ -91,4 +86,14 @@ start_here <- function(x, first_line) {
     ) %>%
     filter(.data$start_indicator_var) %>%
     select(-.data$start_indicator_var)
+}
+
+horizontal_fill <- function(x, row = 1) {
+  tempname <- paste0("V", row)
+  x %>%
+    t() %>%
+    as_tibble_no_warning() %>%
+    fill(.data[[tempname]]) %>%
+    t() %>%
+    as_tibble_no_warning()
 }
