@@ -8,6 +8,7 @@
 [![R-CMD-check](https://github.com/bentrueman/cwrshelpr/workflows/R-CMD-check/badge.svg)](https://github.com/bentrueman/cwrshelpr/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/bentrueman/cwrshelpr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bentrueman/cwrshelpr?branch=main)
+[![R-CMD-check](https://github.com/bentrueman/cwrshelpr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bentrueman/cwrshelpr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `cwrshelpr` provides a collection of functions for data analysis tasks
@@ -63,19 +64,20 @@ files[1:2] %>%
   set_names() %>% 
   map_dfr(read_icp, .id = "file") # read and clean multiple files
 #> # A tibble: 2,439 × 7
-#>    file                 sample_name estimate_type isotope element    value unit 
-#>    <chr>                <chr>       <chr>         <chr>   <chr>      <dbl> <chr>
-#>  1 /Library/Frameworks… Wash        Concentratio… 27      Al       0.115   µg/l 
-#>  2 /Library/Frameworks… Wash        Concentratio… 31      P       -0.0408  µg/l 
-#>  3 /Library/Frameworks… Wash        Concentratio… 45      Sc      99.6     %    
-#>  4 /Library/Frameworks… Wash        Concentratio… 55      Mn      -0.00621 µg/l 
-#>  5 /Library/Frameworks… Wash        Concentratio… 56      Fe       0.0124  µg/l 
-#>  6 /Library/Frameworks… Wash        Concentratio… 65      Cu       0.0396  µg/l 
-#>  7 /Library/Frameworks… Wash        Concentratio… 115     In      99.2     %    
-#>  8 /Library/Frameworks… Wash        Concentratio… 159     Tb      98.1     %    
-#>  9 /Library/Frameworks… Wash        Concentratio… 208     Pb       0.0497  µg/l 
-#> 10 /Library/Frameworks… Wash        Concentratio… 27      Al       0.133   µg/l 
-#> # … with 2,429 more rows
+#>    file                           sampl…¹ estim…² isotope element    value unit 
+#>    <chr>                          <chr>   <chr>   <chr>   <chr>      <dbl> <chr>
+#>  1 /private/var/folders/fy/v4w9p… Wash    Concen… 27      Al       0.115   µg/l 
+#>  2 /private/var/folders/fy/v4w9p… Wash    Concen… 31      P       -0.0408  µg/l 
+#>  3 /private/var/folders/fy/v4w9p… Wash    Concen… 45      Sc      99.6     %    
+#>  4 /private/var/folders/fy/v4w9p… Wash    Concen… 55      Mn      -0.00621 µg/l 
+#>  5 /private/var/folders/fy/v4w9p… Wash    Concen… 56      Fe       0.0124  µg/l 
+#>  6 /private/var/folders/fy/v4w9p… Wash    Concen… 65      Cu       0.0396  µg/l 
+#>  7 /private/var/folders/fy/v4w9p… Wash    Concen… 115     In      99.2     %    
+#>  8 /private/var/folders/fy/v4w9p… Wash    Concen… 159     Tb      98.1     %    
+#>  9 /private/var/folders/fy/v4w9p… Wash    Concen… 208     Pb       0.0497  µg/l 
+#> 10 /private/var/folders/fy/v4w9p… Wash    Concen… 27      Al       0.133   µg/l 
+#> # … with 2,429 more rows, and abbreviated variable names ¹​sample_name,
+#> #   ²​estimate_type
 ```
 
 Use the `read_lims()` function to read/clean files in the new LIMS
@@ -108,6 +110,7 @@ if the corrected first order Rayleigh scattering line includes negative
 intensities.
 
 ``` r
+
 files <- list.files(
    path = system.file("extdata", package = "cwrshelpr"), # replace this line with the path to your data
    full.names = TRUE,
@@ -138,6 +141,7 @@ others). Use the column `em_regular` to avoid horizontal striping due to
 irregular spacing of the `emission` wavelengths.
 
 ``` r
+
 feem_dat %>% 
   ggplot(aes(excitation, em_regular, fill = intensity)) +
   facet_wrap(vars(file)) + 
@@ -150,11 +154,14 @@ feem_dat %>%
 Here is an example using `ggplot2::stat_contour(geom = "polygon")`:
 
 ``` r
+
 feem_dat %>% 
   ggplot(aes(excitation, em_regular, z = intensity, fill = stat(level))) +
   facet_wrap(vars(file)) + 
   stat_contour(geom = "polygon") +
   scale_fill_viridis_c("intensity")
+#> Warning: `stat(level)` was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `after_stat(level)` instead.
 ```
 
 <img src="man/figures/README-feem-plot-2-1.png" width="100%" />
@@ -164,6 +171,7 @@ uses the regions defined in Chen et al. (2003) by default, but you can
 supply your own as well.
 
 ``` r
+
 feem_dat %>% 
   group_by(file) %>% 
   nest() %>% 
@@ -171,26 +179,28 @@ feem_dat %>%
   mutate(regions = map(data, integrate_regions)) %>% 
   unnest(regions)
 #> # A tibble: 12 × 8
-#>    file                    data     name  ex_min ex_max em_min em_max integrated
-#>    <chr>                   <list>   <chr>  <dbl>  <dbl>  <dbl>  <dbl>      <dbl>
-#>  1 /Library/Frameworks/R.… <tibble> regi…    200    250    250    330       46.6
-#>  2 /Library/Frameworks/R.… <tibble> regi…    200    250    250    380      247. 
-#>  3 /Library/Frameworks/R.… <tibble> regi…    200    250    250    550     2421. 
-#>  4 /Library/Frameworks/R.… <tibble> regi…    250    340    340    380      745. 
-#>  5 /Library/Frameworks/R.… <tibble> regi…    250    400    400    550    13312. 
-#>  6 /Library/Frameworks/R.… <tibble> total     NA     NA     NA     NA    21597. 
-#>  7 /Library/Frameworks/R.… <tibble> regi…    200    250    250    330       46.1
-#>  8 /Library/Frameworks/R.… <tibble> regi…    200    250    250    380      261. 
-#>  9 /Library/Frameworks/R.… <tibble> regi…    200    250    250    550     2687. 
-#> 10 /Library/Frameworks/R.… <tibble> regi…    250    340    340    380      827. 
-#> 11 /Library/Frameworks/R.… <tibble> regi…    250    400    400    550    14921. 
-#> 12 /Library/Frameworks/R.… <tibble> total     NA     NA     NA     NA    24147.
+#>    file                       data     name  ex_min ex_max em_min em_max integ…¹
+#>    <chr>                      <list>   <chr>  <dbl>  <dbl>  <dbl>  <dbl>   <dbl>
+#>  1 /private/var/folders/fy/v… <tibble> regi…    200    250    250    330    46.6
+#>  2 /private/var/folders/fy/v… <tibble> regi…    200    250    250    380   247. 
+#>  3 /private/var/folders/fy/v… <tibble> regi…    200    250    250    550  2421. 
+#>  4 /private/var/folders/fy/v… <tibble> regi…    250    340    340    380   745. 
+#>  5 /private/var/folders/fy/v… <tibble> regi…    250    400    400    550 13312. 
+#>  6 /private/var/folders/fy/v… <tibble> total     NA     NA     NA     NA 21597. 
+#>  7 /private/var/folders/fy/v… <tibble> regi…    200    250    250    330    46.1
+#>  8 /private/var/folders/fy/v… <tibble> regi…    200    250    250    380   261. 
+#>  9 /private/var/folders/fy/v… <tibble> regi…    200    250    250    550  2687. 
+#> 10 /private/var/folders/fy/v… <tibble> regi…    250    340    340    380   827. 
+#> 11 /private/var/folders/fy/v… <tibble> regi…    250    400    400    550 14921. 
+#> 12 /private/var/folders/fy/v… <tibble> total     NA     NA     NA     NA 24147. 
+#> # … with abbreviated variable name ¹​integrated
 ```
 
 The humification and biological indices of each FEEM, as described in
 Tedetti et al. (2011), can be calculated using `calculate_indices()`:
 
 ``` r
+
 feem_dat %>% 
   group_by(file) %>% 
   nest() %>% 
@@ -200,10 +210,10 @@ feem_dat %>%
 #> # A tibble: 4 × 4
 #>   file                                                     data     param  value
 #>   <chr>                                                    <list>   <chr>  <dbl>
-#> 1 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> bix    0.517
-#> 2 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> hix   14.6  
-#> 3 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> bix    0.508
-#> 4 /Library/Frameworks/R.framework/Versions/4.1/Resources/… <tibble> hix   13.6
+#> 1 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40000gn/… <tibble> bix    0.517
+#> 2 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40000gn/… <tibble> hix   14.6  
+#> 3 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40000gn/… <tibble> bix    0.508
+#> 4 /private/var/folders/fy/v4w9p72s7c996w8l8qfthxq40000gn/… <tibble> hix   13.6
 ```
 
 ## Additional resources
