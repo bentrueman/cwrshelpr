@@ -7,6 +7,7 @@
 #' As an input to `stringr::str_detect()`, this can be a partial match or a regex.
 #' @param sample_names Name of column where sample names are stored.
 #' @param estimate_types Name of column where estimate types are stored (e.g., average, standard deviation).
+#' @param ... Arguments passed on to `readxl::read_excel()`.
 #'
 #' @return A tibble with columns `sample_name`, `category`, `isotope`, `element`,
 #' `value`, and `unit`
@@ -32,14 +33,15 @@ read_icp <- function(
   sheet_name = "Dilution factor included",
   first_line = "Sample List",
   sample_names = "Label",
-  estimate_types = "Category"
+  estimate_types = "Category",
+  ...
 ) {
 
   temp_names <- make_clean_names(paste(first_line, sample_names, sep = " "))
   temp_types <- make_clean_names(paste(first_line, estimate_types, sep = " "))
 
   path %>%
-    read_excel(col_names = FALSE, sheet = sheet_name) %>%
+    read_excel(col_names = FALSE, sheet = sheet_name, ...) %>%
     start_here(first_line) %>%
     horizontal_fill() %>% # fill first row
     rename_multirow() %>% # get metadata from first two rows

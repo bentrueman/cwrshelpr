@@ -9,7 +9,8 @@ read_icp(
   sheet_name = "Dilution factor included",
   first_line = "Sample List",
   sample_names = "Label",
-  estimate_types = "Category"
+  estimate_types = "Category",
+  ...
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ As an input to \code{stringr::str_detect()}, this can be a partial match or a re
 \item{sample_names}{Name of column where sample names are stored.}
 
 \item{estimate_types}{Name of column where estimate types are stored (e.g., average, standard deviation).}
+
+\item{...}{Arguments passed on to \code{readxl::read_excel()}.}
 }
 \value{
 A tibble with columns \code{sample_name}, \code{category}, \code{isotope}, \code{element},
