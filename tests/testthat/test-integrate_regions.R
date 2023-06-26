@@ -7,6 +7,6 @@ test_that("integrate_regions() returns the expected values", {
   feem <- read_feem(file[1], truncate = TRUE)
   expect_equal(
     integrate_regions(feem)$integrated,
-    c(46.64113, 246.98857, 2420.94329, 744.74940, 13312.19190, 21597.09472)
+    c(46.641128, 200.347438, 2173.954726, 930.982613, 14542.800140, 21597.094717)
   )
 })

@@ -78,6 +78,7 @@ rename_multirow <- function (x, n = 2, remove_na = FALSE) {
 }
 
 start_here <- function(x, first_line) {
+  start_indicator_var <- NULL
   # filter out rows before the data starts:
   x %>%
     mutate(
@@ -87,7 +88,7 @@ start_here <- function(x, first_line) {
         as.logical()
     ) %>%
     filter(.data$start_indicator_var) %>%
-    select(-.data$start_indicator_var)
+    select(-start_indicator_var)
 }
 
 horizontal_fill <- function(x, row = 1) {

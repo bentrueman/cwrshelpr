@@ -21,9 +21,12 @@
 #' )
 #' read_feem(file[1])
 read_feem <- function(path, truncate = FALSE) {
+  `Sample - Blank` <- NULL
+  emission <- NULL
+  em_regular <- NULL
   out <- read_csv(file = path)[-(1:2), ] %>%
     mutate(across(everything(), as.numeric)) %>%
-    rename(emission = .data$`Sample - Blank`) %>%
+    rename(emission = `Sample - Blank`) %>%
     # create a regular sequence of emission wavelengths:
     arrange(.data$emission) %>%
     mutate(
@@ -34,7 +37,7 @@ read_feem <- function(path, truncate = FALSE) {
       )
     ) %>%
     pivot_longer(
-      -c(.data$emission, .data$em_regular),
+      -c(emission, em_regular),
       names_to = "excitation",
       values_to = "intensity"
     ) %>%

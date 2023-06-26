@@ -16,7 +16,7 @@
        8 Wash        Concentration average 159     Tb      98.1     %    
        9 Wash        Concentration average 208     Pb       0.0497  µg/l 
       10 Wash        Concentration per Run 27      Al       0.133   µg/l 
-      # ... with 1,430 more rows
+      # i 1,430 more rows
 
 ---
 
@@ -36,5 +36,5 @@
        8 Wash        Concentration average 159     Tb      97.6     %    
        9 Wash        Concentration average 208     Pb       0.0356  µg/l 
       10 Wash        Concentration per Run 27      Al       0.228   µg/l 
-      # ... with 989 more rows
+      # i 989 more rows
 

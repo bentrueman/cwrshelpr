@@ -18,6 +18,8 @@
 #' data <- read_feem(file[1])
 #' calculate_indices(data)
 calculate_indices <- function(x) {
+  bix <- NULL
+  hix <- NULL
   x %>%
     mutate(
       # should be ex/em 310/380:
@@ -40,7 +42,7 @@ calculate_indices <- function(x) {
         sum(.data$intensity[.data$hix_denominator])
     ) %>%
     pivot_longer(
-      c(.data$bix, .data$hix),
+      c(bix, hix),
       names_to = "param"
     )
 }

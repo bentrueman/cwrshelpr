@@ -33,11 +33,13 @@ integrate_regions <- function(
   em_max = c(330, 380, 550, 380, 550),
   region_names = 1:5
 ) {
-
+  bound <- NULL
+  value <- NULL
+  eem <- NULL
   coords <- list(
     "ex_min" = ex_min,
     "ex_max" = ex_max,
-    "em_min" = ex_max,
+    "em_min" = em_min,
     "em_max" = em_max
   ) %>%
     map_dfr(
@@ -46,7 +48,7 @@ integrate_regions <- function(
         enframe(),
       .id = "bound"
     ) %>%
-    pivot_wider(names_from = .data$bound, values_from = .data$value)
+    pivot_wider(names_from = bound, values_from = value)
 
   resolution <- x %>% # average cell area
     summarize(
@@ -74,6 +76,6 @@ integrate_regions <- function(
       integrated = .data$sum * resolution
     ) %>%
     ungroup() %>%
-    select(-c(.data$eem, .data$sum)) %>%
+    select(-c(eem, sum)) %>%
     add_row(name = "total", integrated = sum(x$intensity) * resolution)
 }

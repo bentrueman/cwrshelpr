@@ -34,6 +34,12 @@ read_lims <- function(
   meta_rows = 4,
   work_order
 ) {
+  parameter_name <- NULL
+  unit <- NULL
+  rdl <- NULL
+  name <- NULL
+  value <- NULL
+  date_raw <- NULL
   path %>%
     read_excel(col_names = FALSE) %>%
     start_here(first_line) %>%
@@ -43,7 +49,7 @@ read_lims <- function(
       starts_with(work_order)
     ) %>%
     clean_names() %>%
-    select(param = .data$parameter_name, .data$unit, .data$rdl, .data$name, .data$value) %>%
+    select(param = parameter_name, unit, rdl, name, value) %>%
     mutate(
       work_order = str_extract(.data$name, "[^_]+"),
       date_raw = str_extract(.data$name, "(?<=_)[^_]+"),
@@ -52,6 +58,6 @@ read_lims <- function(
       bdl = str_detect(.data$value, "<"),
       value = as.numeric(str_remove(.data$value, "<"))
     ) %>%
-    select(-c(.data$name, .data$work_order, .data$date_raw))
+    select(-c(name, work_order, date_raw))
 
 }
